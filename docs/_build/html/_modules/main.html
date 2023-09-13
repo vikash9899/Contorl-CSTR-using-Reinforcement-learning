@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>main &mdash; Reinforcement learning agent to control the CSTR process. 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Reinforcement learning agent to control the CSTR process.
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">RL_1</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Reinforcement learning agent to control the CSTR process.</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for main</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">DDPG</span> <span class="k">as</span> <span class="nn">ddpg</span>
+<span class="kn">import</span> <span class="nn">env</span> <span class="k">as</span> <span class="nn">e</span>
+<span class="kn">import</span> <span class="nn">utils</span>
+<span class="kn">import</span> <span class="nn">buffer</span> <span class="k">as</span> <span class="nn">bf</span>
+<span class="kn">import</span> <span class="nn">time</span> 
+
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;float&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0:0.5f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)})</span>
+
+
+<span class="n">episode_length</span> <span class="o">=</span> <span class="mi">500</span> 
+
+
+<div class="viewcode-block" id="actor_training"><a class="viewcode-back" href="../main.html#main.actor_training">[docs]</a><span class="k">def</span> <span class="nf">actor_training</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">replay_buffer</span><span class="p">,</span> <span class="n">start_timesteps</span><span class="p">,</span> <span class="n">total_ep_training</span> <span class="p">):</span>
+
+    <span class="k">global</span> <span class="n">episode_length</span> 
+
+    <span class="n">ep_reward_list</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="n">rolling_mean</span> <span class="o">=</span> <span class="p">[]</span> 
+
+    <span class="n">decay_rate</span> <span class="o">=</span> <span class="mf">0.02</span> 
+
+    <span class="n">data_listt</span> <span class="o">=</span> <span class="p">[]</span> 
+
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> 
+    <span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">total_ep_training</span><span class="p">):</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> </span><span class="se">\n</span><span class="s2"> </span><span class="se">\n</span><span class="s2"> episode : &quot;</span><span class="p">,</span> <span class="n">ep</span> <span class="p">)</span> 
+        <span class="n">episode_reward</span> <span class="o">=</span> <span class="mi">0</span> 
+        <span class="n">state</span><span class="p">,</span> <span class="n">info_dic</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span> 
+
+        <span class="n">setpoint_state</span> <span class="o">=</span> <span class="n">info_dic</span><span class="p">[</span><span class="s1">&#39;setpoint_state&#39;</span><span class="p">]</span>   
+
+        <span class="n">setpoint_action</span> <span class="o">=</span> <span class="n">info_dic</span><span class="p">[</span><span class="s1">&#39;setpoint_action&#39;</span><span class="p">]</span> 
+
+        <span class="n">decay_std</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">decay_rate</span> <span class="o">*</span> <span class="n">ep</span><span class="p">)</span>   
+
+        <span class="n">std_dev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">decay_std</span><span class="p">,</span> <span class="n">decay_std</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>     
+        <span class="n">ep_len</span> <span class="o">=</span> <span class="mi">0</span>  
+
+        <span class="n">actions__</span> <span class="o">=</span> <span class="p">[]</span> 
+        <span class="n">obs__</span> <span class="o">=</span> <span class="p">[]</span> 
+
+        <span class="n">us_obs__</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">us_actions__</span> <span class="o">=</span> <span class="p">[]</span> 
+
+
+        <span class="n">break_episode</span> <span class="o">=</span> <span class="kc">False</span>  
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="ow">not</span><span class="p">(</span><span class="n">break_episode</span><span class="p">):</span> 
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c1"># print(&quot;itr : &quot;, ep_len)  </span>
+            <span class="c1"># print(&quot;ep len &quot;, ep_len)  </span>
+            <span class="c1"># print(&quot;ep len : &quot;, ep_len) </span>
+
+            <span class="n">ep_len</span> <span class="o">+=</span> <span class="mi">1</span> 
+
+            <span class="k">if</span> <span class="n">ep</span> <span class="o">&lt;=</span> <span class="n">start_timesteps</span><span class="p">:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>   
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="n">noisy_action</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">select_action</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">+</span> \
+                            <span class="n">utils</span><span class="o">.</span><span class="n">gaussian_noise</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="n">std_dev</span> <span class="p">)</span>  
+                
+                <span class="c1"># noisy_action = policy.select_action(state) </span>
+                           
+                <span class="n">action</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">clip_negative_positive_one</span><span class="p">(</span><span class="n">noisy_action</span><span class="p">)</span>  
+                
+
+            <span class="c1">### Perform action</span>
+            <span class="c1"># print(&quot;actions : &quot;, action) </span>
+
+            <span class="n">obs__</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>  
+            <span class="n">actions__</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>    
+
+            <span class="n">t_s</span>  <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reverse_normalize_minmax_states</span><span class="p">(</span><span class="n">state</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span> 
+            <span class="n">t_e</span>  <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reverse_normalize_minmax_error</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>  
+            <span class="n">t_ie</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reverse_normalize_minmax_ierror</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> 
+
+            <span class="n">obsss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">t_s</span><span class="p">,</span> <span class="n">t_e</span><span class="p">,</span> <span class="n">t_ie</span><span class="p">])</span> 
+
+            <span class="n">us_obs__</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obsss</span><span class="p">)</span> 
+
+            <span class="n">t_a</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reverse_normalize_minmax_actions</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>   
+
+            <span class="n">us_actions__</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_a</span><span class="p">)</span>    
+            
+            <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">terminated</span><span class="p">,</span> <span class="n">trancate</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span> 
+            
+            <span class="n">break_episode</span> <span class="o">=</span> <span class="n">terminated</span> <span class="ow">or</span> <span class="n">trancate</span> 
+
+            <span class="c1"># temp_std_dev = decay_std * abs(reward)       </span>
+            <span class="c1"># std_dev = np.array([temp_std_dev, temp_std_dev], dtype=float)     </span>
+
+            <span class="n">done</span> <span class="o">=</span> <span class="n">terminated</span> 
+
+            <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1">### Store data in replay buffer </span>
+            <span class="n">replay_buffer</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>  
+
+            <span class="c1">### Train agent after collecting sufficient data</span>
+            <span class="k">if</span> <span class="n">ep</span> <span class="o">&gt;=</span> <span class="n">start_timesteps</span><span class="p">:</span>
+                <span class="n">policy</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">replay_buffer</span><span class="p">,</span> <span class="n">batch_size</span> <span class="p">)</span>    
+
+
+            <span class="k">if</span> <span class="n">break_episode</span><span class="p">:</span> 
+                <span class="n">obs__</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs__</span><span class="p">)</span> 
+                <span class="n">actions__</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">actions__</span><span class="p">)</span>  
+
+
+                <span class="c1"># print(&quot; ep length : &quot;, ep_len)  </span>
+                <span class="c1"># t_s = utils.reverse_normalize_minmax_states(obs__[:4]) </span>
+                <span class="c1"># t_e = utils.reverse_normalize_minmax_error(obs__[4])  </span>
+                <span class="c1"># t_ie = utils.reverse_normalize_minmax_error(obs__[5])  </span>
+                <span class="c1"># t_a = utils.reverse_normalize_minmax_actions(actions__)     </span>
+
+                <span class="c1"># obsss = np.concatenate([t_s, t_e, t_ie]) </span>
+
+                <span class="c1"># file1 = utils.global_dir + &#39;/data/sa_data/s_obs_&#39; + str(ep) + &#39;.csv&#39; </span>
+                <span class="c1"># file2 = utils.global_dir + &#39;/data/sa_data/s_actions_&#39; + str(ep) + &#39;.csv&#39;  </span>
+
+                <span class="c1"># np.savetxt(file1, obsss, delimiter=&#39;,&#39;) </span>
+
+                <span class="c1"># t_action = utils.normalize_minmax_actions(actions__) </span>
+                <span class="c1"># np.savetxt(file2, t_action, delimiter=&#39;,&#39;) </span>
+
+                <span class="n">t_ns</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">reverse_normalize_minmax_states</span><span class="p">(</span><span class="n">next_state</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span> 
+                <span class="c1"># print(&quot; us obs : &quot;, obsss  ) </span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; step   : &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">setpoint_state</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; state  : &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">t_s</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>   
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; step a : &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">setpoint_action</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> 
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; action : &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">t_a</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>    
+                <span class="c1"># print(&quot; reward : &quot;, reward)    </span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; done   : &quot;</span><span class="p">,</span> <span class="n">done</span><span class="p">)</span>        
+
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   _std : &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">decay_std</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>   
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;episode length : &quot;</span><span class="p">,</span> <span class="n">counter</span><span class="p">)</span> 
+
+
+                <span class="n">dict__n</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;setpoint_state  &quot;</span><span class="p">:</span> <span class="n">setpoint_state</span><span class="p">,</span> 
+                    <span class="s2">&quot;state           &quot;</span><span class="p">:</span><span class="n">t_s</span><span class="p">,</span>
+                    <span class="s2">&quot;setpoint_action &quot;</span><span class="p">:</span> <span class="n">setpoint_action</span><span class="p">,</span>
+                    <span class="s2">&quot;action          &quot;</span><span class="p">:</span><span class="n">t_a</span><span class="p">,</span>
+                    <span class="s2">&quot;ep_reward       &quot;</span><span class="p">:</span><span class="n">episode_reward</span><span class="p">,</span>
+                    <span class="s2">&quot;reward          &quot;</span><span class="p">:</span><span class="n">reward</span><span class="p">,</span>
+                    <span class="s2">&quot;done            &quot;</span><span class="p">:</span><span class="n">done</span><span class="p">,</span>
+                    <span class="s2">&quot;std             &quot;</span><span class="p">:</span><span class="n">decay_std</span><span class="p">,</span> 
+                    <span class="s2">&quot;episode length  &quot;</span><span class="p">:</span><span class="n">counter</span> 
+                <span class="p">}</span>  
+
+                <span class="n">data_listt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dict__n</span><span class="p">)</span> 
+
+                
+                <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                file1 = utils.global_dir + &#39;/data/sa_data/obs_&#39; + str(ep) + &#39;.csv&#39; </span>
+<span class="sd">                file2 = utils.global_dir + &#39;/data/sa_data/actions_&#39; + str(ep) + &#39;.csv&#39;  </span>
+
+<span class="sd">                np.savetxt(file1, obs__, delimiter=&#39;,&#39;) </span>
+<span class="sd">                np.savetxt(file2, actions__, delimiter=&#39;,&#39;) </span>
+
+
+<span class="sd">                file1 = utils.global_dir + &#39;/data/sa_data/us_obs_&#39; + str(ep) + &#39;.csv&#39; </span>
+<span class="sd">                file2 = utils.global_dir + &#39;/data/sa_data/us_actions_&#39; + str(ep) + &#39;.csv&#39;  </span>
+
+<span class="sd">                np.savetxt(file1, us_obs__, delimiter=&#39;,&#39;) </span>
+<span class="sd">                np.savetxt(file2, us_actions__, delimiter=&#39;,&#39;) </span>
+<span class="sd">                </span>
+
+<span class="sd">                t_states = obs__[:, :4]   </span>
+
+
+<span class="sd">                file4 = utils.global_dir + &#39;/data/sa_data/states_&#39; + str(ep) + &#39;.csv&#39; </span>
+<span class="sd">                np.savetxt(file4, t_states, delimiter=&#39;,&#39;) </span>
+
+<span class="sd">                file3 = utils.global_dir + &#39;/data/sa_plots/fig__&#39; + str(ep) + &#39;.jpg&#39;  </span>
+
+<span class="sd">                t_states = utils.reverse_normalize_minmax_states(t_states) </span>
+<span class="sd">                actions__ = utils.reverse_normalize_minmax_actions(actions__) </span>
+<span class="sd">                ploting.plot_mpc_rl_comparision(t_states, actions__, ep, file3) </span>
+<span class="sd">                &quot;&quot;&quot;</span> 
+
+
+            <span class="k">if</span> <span class="n">ep</span> <span class="o">%</span> <span class="mi">500</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+                <span class="n">dir_l</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">global_dir</span> <span class="o">+</span> <span class="s1">&#39;/data&#39;</span>  
+                <span class="n">policy</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">dir_l</span><span class="p">,</span> <span class="n">ep</span><span class="p">)</span>   
+
+                <span class="n">file</span>  <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">global_dir</span> <span class="o">+</span> <span class="s1">&#39;/data/mat/reward_list&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ep</span><span class="p">)</span> <span class="o">+</span><span class="s1">&#39;.csv&#39;</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">ep_reward_list</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>     
+                <span class="k">pass</span> 
+
+
+            <span class="n">state</span> <span class="o">=</span> <span class="n">next_state</span> 
+            <span class="n">episode_reward</span> <span class="o">+=</span> <span class="n">reward</span> 
+
+        <span class="n">ep_reward_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">episode_reward</span><span class="p">)</span>    
+
+        <span class="c1"># rolling_mean_of = 10</span>
+        <span class="c1"># if len(ep_reward_list) &gt; rolling_mean_of:</span>
+        <span class="c1">#     avg_mean = sum(ep_reward_list[-rolling_mean_of:]) </span>
+        <span class="c1">#     rolling_mean.append(avg_mean) </span>
+        
+        <span class="c1"># if len(rolling_mean) &gt; 10:</span>
+        <span class="c1">#     avg = sum(rolling_mean[-10:])/10 </span>
+
+        <span class="c1">#     stop_training = True </span>
+        <span class="c1">#     for i in range(-10, -1):</span>
+        <span class="c1">#         yes =  (rolling_mean[i] - avg) &lt; 0.05</span>
+                     
+
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Episode reward : &quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">episode_reward</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  
+        
+
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> 
+
+    <span class="n">time_taken_in_seconds</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> 
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;time.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">start</span><span class="p">))</span>  
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> 
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">end</span><span class="p">))</span>  
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">time_taken_in_seconds</span><span class="o">+</span><span class="s2">&quot; time taken during training in seconds&quot;</span><span class="p">)</span>     
+
+        
+
+
+    <span class="nb">print</span><span class="p">()</span> 
+
+    <span class="n">file</span>  <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">global_dir</span> <span class="o">+</span> <span class="s1">&#39;/data/mat/reward_list.csv&#39;</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">ep_reward_list</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>  
+
+    <span class="n">dir_l</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">global_dir</span> <span class="o">+</span> <span class="s1">&#39;/data&#39;</span>
+    <span class="n">policy</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">dir_l</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span> 
+
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;output_list.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dictionary</span> <span class="ow">in</span> <span class="n">data_listt</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">:</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># env.save()   </span>
+
+
+<div class="viewcode-block" id="run"><a class="viewcode-back" href="../main.html#main.run">[docs]</a><span class="k">def</span> <span class="nf">run</span><span class="p">():</span> 
+
+    <span class="n">cstr</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">cstr_env</span><span class="p">()</span> 
+
+    <span class="n">state_dim</span> <span class="o">=</span> <span class="n">cstr</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+    <span class="n">action_dim</span> <span class="o">=</span> <span class="n">cstr</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;state dim : &quot;</span><span class="p">,</span> <span class="n">state_dim</span><span class="p">)</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;action dim : &quot;</span><span class="p">,</span> <span class="n">action_dim</span> <span class="p">)</span>   
+    
+    <span class="n">ddpg</span> <span class="o">=</span> <span class="n">ddpg</span><span class="o">.</span><span class="n">DDPG</span><span class="p">(</span><span class="n">state_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">)</span>    
+
+    <span class="n">buffer_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">1e5</span><span class="p">)</span>  
+
+    <span class="n">buffer</span> <span class="o">=</span> <span class="n">bf</span><span class="o">.</span><span class="n">ReplayBuffer</span><span class="p">(</span><span class="n">state_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">,</span> <span class="n">buffer_size</span><span class="p">)</span>  
+
+    <span class="n">actor_training</span><span class="p">(</span> 
+        <span class="n">env</span><span class="o">=</span> <span class="n">cstr</span><span class="p">,</span>
+        <span class="n">policy</span><span class="o">=</span> <span class="n">ddpg</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span> <span class="mi">256</span><span class="p">,</span>  
+        <span class="n">replay_buffer</span><span class="o">=</span> <span class="n">buffer</span><span class="p">,</span>
+        <span class="n">start_timesteps</span><span class="o">=</span> <span class="mi">500</span><span class="p">,</span> 
+        <span class="n">total_ep_training</span> <span class="o">=</span> <span class="mi">3000</span> 
+    <span class="p">)</span>  </div>
+
+
+    <span class="c1"># buffer.save_buffer()   </span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">run</span><span class="p">()</span> 
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Vikas Rajpoot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

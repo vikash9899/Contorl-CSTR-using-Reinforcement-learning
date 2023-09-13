@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RL_1 &mdash; Reinforcement learning agent to control the CSTR process. 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="DDPG module" href="DDPG.html" />
+    <link rel="prev" title="Stable-Baselines3 Docs - Reliable Reinforcement Learning Implementations" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Reinforcement learning agent to control the CSTR process.
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">RL_1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html">DDPG module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buffer.html">buffer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env.html">env module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matrics.html">matrics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ploting.html">ploting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_sa.html">random_sa module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simulator.html">simulator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test_trained_agent.html">test_trained_agent module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Reinforcement learning agent to control the CSTR process.</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">RL_1</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rl-1">
+<h1>RL_1<a class="headerlink" href="#rl-1" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="DDPG.html">DDPG module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#DDPG.Actor"><code class="docutils literal notranslate"><span class="pre">Actor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.Actor.forward"><code class="docutils literal notranslate"><span class="pre">Actor.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#DDPG.Critic"><code class="docutils literal notranslate"><span class="pre">Critic</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.Critic.forward"><code class="docutils literal notranslate"><span class="pre">Critic.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#DDPG.DDPG"><code class="docutils literal notranslate"><span class="pre">DDPG</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.DDPG.load"><code class="docutils literal notranslate"><span class="pre">DDPG.load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.DDPG.save"><code class="docutils literal notranslate"><span class="pre">DDPG.save()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.DDPG.select_action"><code class="docutils literal notranslate"><span class="pre">DDPG.select_action()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.DDPG.train"><code class="docutils literal notranslate"><span class="pre">DDPG.train()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="buffer.html">buffer module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="buffer.html#buffer.ReplayBuffer"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="buffer.html#buffer.ReplayBuffer.add"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="buffer.html#buffer.ReplayBuffer.sample"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.sample()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="buffer.html#buffer.ReplayBuffer.save_buffer"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.save_buffer()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">env module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="env.html#env.cstr_env"><code class="docutils literal notranslate"><span class="pre">cstr_env</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="env.html#env.cstr_env.calculate_errors"><code class="docutils literal notranslate"><span class="pre">cstr_env.calculate_errors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="env.html#env.cstr_env.calculate_integral_errors"><code class="docutils literal notranslate"><span class="pre">cstr_env.calculate_integral_errors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="env.html#env.cstr_env.calculate_reward"><code class="docutils literal notranslate"><span class="pre">cstr_env.calculate_reward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="env.html#env.cstr_env.initial_sa"><code class="docutils literal notranslate"><span class="pre">cstr_env.initial_sa()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="env.html#env.cstr_env.is_done"><code class="docutils literal notranslate"><span class="pre">cstr_env.is_done()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="env.html#env.cstr_env.reset"><code class="docutils literal notranslate"><span class="pre">cstr_env.reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="env.html#env.cstr_env.save_episode_data"><code class="docutils literal notranslate"><span class="pre">cstr_env.save_episode_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="env.html#env.cstr_env.setpoint"><code class="docutils literal notranslate"><span class="pre">cstr_env.setpoint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="env.html#env.cstr_env.step"><code class="docutils literal notranslate"><span class="pre">cstr_env.step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="main.html#main.actor_training"><code class="docutils literal notranslate"><span class="pre">actor_training()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#main.run"><code class="docutils literal notranslate"><span class="pre">run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="matrics.html">matrics module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="matrics.html#matrics.plot_series"><code class="docutils literal notranslate"><span class="pre">plot_series()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="matrics.html#matrics.plot_sliding_mean"><code class="docutils literal notranslate"><span class="pre">plot_sliding_mean()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ploting.html">ploting module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ploting.html#ploting.plot_mpc_rl_comparision"><code class="docutils literal notranslate"><span class="pre">plot_mpc_rl_comparision()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ploting.html#ploting.plot_rl_comparision"><code class="docutils literal notranslate"><span class="pre">plot_rl_comparision()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ploting.html#ploting.plot_xu"><code class="docutils literal notranslate"><span class="pre">plot_xu()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="random_sa.html">random_sa module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="random_sa.html#random_sa.sample_actions"><code class="docutils literal notranslate"><span class="pre">sample_actions()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_sa.html#random_sa.sample_states"><code class="docutils literal notranslate"><span class="pre">sample_states()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="simulator.html">simulator module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="simulator.html#simulator.cstr_dynamics"><code class="docutils literal notranslate"><span class="pre">cstr_dynamics()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="test_trained_agent.html">test_trained_agent module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="test_trained_agent.html#test_trained_agent.closed_loop_simulation_rl"><code class="docutils literal notranslate"><span class="pre">closed_loop_simulation_rl()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#utils.clip_actions"><code class="docutils literal notranslate"><span class="pre">clip_actions()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#utils.normalize_minmax_actions"><code class="docutils literal notranslate"><span class="pre">normalize_minmax_actions()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#utils.normalize_minmax_error"><code class="docutils literal notranslate"><span class="pre">normalize_minmax_error()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#utils.normalize_minmax_ierror"><code class="docutils literal notranslate"><span class="pre">normalize_minmax_ierror()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#utils.normalize_minmax_states"><code class="docutils literal notranslate"><span class="pre">normalize_minmax_states()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#utils.reverse_normalize_minmax_actions"><code class="docutils literal notranslate"><span class="pre">reverse_normalize_minmax_actions()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#utils.reverse_normalize_minmax_error"><code class="docutils literal notranslate"><span class="pre">reverse_normalize_minmax_error()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#utils.reverse_normalize_minmax_ierror"><code class="docutils literal notranslate"><span class="pre">reverse_normalize_minmax_ierror()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#utils.reverse_normalize_minmax_states"><code class="docutils literal notranslate"><span class="pre">reverse_normalize_minmax_states()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Stable-Baselines3 Docs - Reliable Reinforcement Learning Implementations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="DDPG.html" class="btn btn-neutral float-right" title="DDPG module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Vikas Rajpoot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

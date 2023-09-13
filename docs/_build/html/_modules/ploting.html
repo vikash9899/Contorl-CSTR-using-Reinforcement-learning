@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ploting &mdash; Reinforcement learning agent to control the CSTR process. 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Reinforcement learning agent to control the CSTR process.
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">RL_1</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Reinforcement learning agent to control the CSTR process.</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">ploting</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ploting</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> 
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This module is used to ploting the figures </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="plot_xu"><a class="viewcode-back" href="../ploting.html#ploting.plot_xu">[docs]</a><span class="k">def</span> <span class="nf">plot_xu</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">I</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function plot_xu is used to plots the four states :math:`[C_A, C_B, T_R, T_K]` and two action :math:`[F, \dot Q]`.  </span>
+
+<span class="sd">        Arguments : </span>
+<span class="sd">            **S (np.ndarray)** : S is the numpy array contents the four states :math:`[C_A, C_B, T_R, T_K]`.  \n</span>
+<span class="sd">            **I (np.ndarray)** : I is the numpy array contents the two actions :math:`[F, \dot Q]`.  \n</span>
+<span class="sd">            **file (str, path)** : path where figure need to be saved.  \n </span>
+<span class="sd">            </span>
+<span class="sd">        Return :  </span>
+<span class="sd">            None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+
+    <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> 
+    <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">I</span><span class="p">)</span>  
+    <span class="n">length</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>    
+    
+    <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> 
+    <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">I</span><span class="p">)</span> 
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">S</span><span class="p">,</span> <span class="n">I</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span> <span class="p">)</span>  
+
+    <span class="n">title</span> <span class="o">=</span> <span class="p">[</span>  <span class="s2">&quot;control $(C_A)$&quot;</span><span class="p">,</span>  <span class="s2">&quot;control  $(C_B)$&quot;</span><span class="p">,</span>  <span class="s2">&quot;control  $(T_R)$&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;control  $(T_K)$&quot;</span><span class="p">,</span> <span class="s2">&quot; control $F$ &quot;</span><span class="p">,</span> <span class="s2">&quot;control  $Q$&quot;</span><span class="p">]</span>
+
+    <span class="n">ylabel</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;$C_A$&#39;</span><span class="p">,</span> <span class="s1">&#39;$C_B$&#39;</span><span class="p">,</span> <span class="s1">&#39;$T_R$&#39;</span><span class="p">,</span> <span class="s1">&#39;$T_K$&#39;</span><span class="p">,</span> <span class="s1">&#39;$F$&#39;</span><span class="p">,</span> <span class="s1">&#39;$Q$&#39;</span><span class="p">]</span>
+    
+    
+    <span class="n">ymin</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">9000</span><span class="p">]</span> 
+    <span class="n">ymax</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  
+    
+    <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;linestyle&#39;</span> <span class="p">:</span> <span class="s1">&#39;solid&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;marker&#39;</span> <span class="p">:</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;markerfacecolor&#39;</span> <span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;markersize&#39;</span> <span class="p">:</span> <span class="mi">3</span> 
+    <span class="p">}</span> 
+    
+    <span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.71</span><span class="p">,</span> <span class="mf">0.60</span><span class="p">,</span> <span class="mf">127.25</span><span class="p">,</span> <span class="mf">124.39</span> <span class="p">]</span>  
+    <span class="n">ca</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.71</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 
+    <span class="n">cb</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 
+    <span class="n">tr</span> <span class="o">=</span> <span class="p">[</span><span class="mf">127.25</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 
+    <span class="n">tk</span> <span class="o">=</span> <span class="p">[</span><span class="mf">124.39</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>   
+    
+    <span class="n">f</span> <span class="o">=</span> <span class="p">[</span><span class="mf">6.01</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 
+    <span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2765</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 
+    
+    
+    <span class="n">state_lists</span> <span class="o">=</span> <span class="p">[</span><span class="n">ca</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">tr</span><span class="p">,</span> <span class="n">tk</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">q</span><span class="p">]</span>  
+	<span class="c1"># Figure used for the plot the x, and u of the process. </span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span> 
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>  
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span> <span class="p">)</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span> <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span> 
+        <span class="c1"># plt.ylim(ymin[i], ymax[i]) </span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  
+        <span class="c1"># plt.plot(x, state_lists[i]) </span>
+        
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span> 
+    <span class="c1"># plt.show() </span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>   
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>   </div>
+
+
+<div class="viewcode-block" id="plot_rl_comparision"><a class="viewcode-back" href="../ploting.html#ploting.plot_rl_comparision">[docs]</a><span class="k">def</span> <span class="nf">plot_rl_comparision</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">,</span> <span class="n">rl_uk</span><span class="p">,</span> <span class="n">itr</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function plot_xu is used to plots the four states :math:`[C_A, C_B, T_R, T_K]` and two action :math:`[F, \dot Q]`.  </span>
+
+<span class="sd">        Arguments : </span>
+<span class="sd">            **rl_xk (np.ndarray)** : S is the numpy array contents the four states :math:`[C_A, C_B, T_R, T_K]`.  \n</span>
+<span class="sd">            **rl_uk (np.ndarray)** : I is the numpy array contents the two actions :math:`[F, \dot Q]`.  \n </span>
+<span class="sd">            **itr (integer)** : itr is unique key given to the figure.  \n </span>
+<span class="sd">            **file (str, path)** : path where figure need to be saved.  \n</span>
+<span class="sd">            </span>
+<span class="sd">        Return :  </span>
+<span class="sd">            None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">rl_xk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">)</span>   
+    <span class="n">rl_uk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rl_uk</span><span class="p">)</span>    
+
+    <span class="n">length</span> <span class="o">=</span> <span class="n">rl_xk</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+    <span class="n">rl_time</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>  
+    
+    <span class="n">rl_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">rl_xk</span><span class="p">,</span> <span class="n">rl_uk</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>  
+
+	<span class="c1"># reference state of the each output variables </span>
+    <span class="n">goal_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">.70</span><span class="p">,</span> <span class="mf">.60</span><span class="p">,</span> <span class="mf">127.25</span><span class="p">,</span> <span class="mf">124.39</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>           
+    
+    <span class="n">ca</span> <span class="o">=</span> <span class="p">[</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rl_time</span><span class="p">)</span> 
+    <span class="n">cb</span> <span class="o">=</span> <span class="p">[</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rl_time</span><span class="p">)</span> 
+    <span class="n">tr</span> <span class="o">=</span> <span class="p">[</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rl_time</span><span class="p">)</span> 
+    <span class="n">tk</span> <span class="o">=</span> <span class="p">[</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rl_time</span><span class="p">)</span>   
+
+    <span class="n">list_of_goal_state</span> <span class="o">=</span> <span class="p">[</span><span class="n">ca</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">tr</span><span class="p">,</span> <span class="n">tk</span><span class="p">]</span> 
+
+    <span class="n">o_ca</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">goal_state</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">4</span><span class="p">)</span> 
+    <span class="n">o_cb</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">goal_state</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">4</span><span class="p">)</span> 
+    <span class="n">o_tr</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">goal_state</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mi">4</span><span class="p">)</span> 
+    <span class="n">o_tk</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">goal_state</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="mi">4</span><span class="p">)</span> 
+
+    <span class="n">offset</span> <span class="o">=</span> <span class="p">[</span><span class="n">o_ca</span><span class="p">,</span> <span class="n">o_cb</span><span class="p">,</span> <span class="n">o_tr</span><span class="p">,</span> <span class="n">o_tk</span><span class="p">]</span>  
+
+    <span class="n">rl_ca_f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span> 
+    <span class="n">rl_cb_f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span> 
+    <span class="n">rl_tr_f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span> 
+    <span class="n">rl_tk_f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>  
+    <span class="n">rl_f_f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rl_uk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span> 
+    <span class="n">rl_q_f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rl_uk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>    
+
+    <span class="n">rl_final_value</span> <span class="o">=</span> <span class="p">[</span> <span class="n">rl_ca_f</span><span class="p">,</span><span class="n">rl_cb_f</span><span class="p">,</span><span class="n">rl_tr_f</span><span class="p">,</span><span class="n">rl_tk_f</span><span class="p">,</span> <span class="n">rl_f_f</span><span class="p">,</span> <span class="n">rl_q_f</span> <span class="p">]</span>  
+
+	
+    <span class="n">title</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;concentration of reactant A $(C_A)- test :$&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">itr</span><span class="p">),</span> <span class="s2">&quot;concentration of reactant B $(C_B)- test :$&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">itr</span><span class="p">),</span> <span class="s2">&quot;temperature inside reactor $(T_R)- test :$&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">itr</span><span class="p">),</span>
+             <span class="s2">&quot;temperature of the cooling jacket $(T_K)- test :$&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">itr</span><span class="p">),</span> <span class="s2">&quot; feed $F$ &quot;</span><span class="p">,</span> <span class="s2">&quot; heat flow $Q- test :$&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">itr</span><span class="p">)]</span> 
+
+
+    <span class="n">ylabel</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;$C_A$&#39;</span><span class="p">,</span> <span class="s1">&#39;$C_B$&#39;</span><span class="p">,</span> <span class="s1">&#39;$T_R$&#39;</span><span class="p">,</span> <span class="s1">&#39;$T_K$&#39;</span><span class="p">,</span> <span class="s1">&#39;$F$&#39;</span><span class="p">,</span> <span class="s1">&#39;$Q$&#39;</span><span class="p">]</span>
+    
+    
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+
+    <span class="c1"># print(type(axs))  </span>
+    <span class="c1"># print(len(axs)) </span>
+
+    <span class="c1">## ploting the Ca and the reference state. </span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time ---&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">list_of_goal_state</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;setpoint&#39;</span><span class="p">)</span>     
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">rl_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;setpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;rl&quot;</span><span class="p">]</span> <span class="p">)</span>   
+    
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.85</span><span class="p">,</span> <span class="s1">&#39;set point: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  
+    
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.7</span><span class="p">,</span> <span class="s1">&#39;rl : &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rl_final_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span> 
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;offset: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  
+
+
+    <span class="c1">## ploting the Cb and the reference state. </span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time ---&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">list_of_goal_state</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;setpoint&#39;</span><span class="p">)</span>     
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">rl_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;setpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;rl&quot;</span><span class="p">]</span> <span class="p">)</span>   
+    
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.85</span><span class="p">,</span> <span class="s1">&#39;set point: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  
+    
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.7</span><span class="p">,</span> <span class="s1">&#39;rl : &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rl_final_value</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span> 
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;offset: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  
+
+
+    <span class="c1">## ploting the Tr and the reference state. </span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time ---&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">list_of_goal_state</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;setpoint&#39;</span><span class="p">)</span>     
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">rl_data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;setpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;rl&quot;</span><span class="p">]</span> <span class="p">)</span>   
+    
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.85</span><span class="p">,</span> <span class="s1">&#39;set point: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  
+    
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.7</span><span class="p">,</span> <span class="s1">&#39;rl : &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rl_final_value</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span> 
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;offset: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  
+
+    <span class="c1">## ploting the Tk and the reference state. </span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time ---&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">list_of_goal_state</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;setpoint&#39;</span><span class="p">)</span>     
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">rl_data</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;setpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;rl&quot;</span><span class="p">]</span> <span class="p">)</span>   
+    
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.85</span><span class="p">,</span> <span class="s1">&#39;set point: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  
+    
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.7</span><span class="p">,</span> <span class="s1">&#39;rl : &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rl_final_value</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span> 
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;offset: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  
+
+
+    <span class="c1">## ploting the F and the reference state. </span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time ---&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="c1"># axs[2][0].plot(rl_time, list_of_goal_state[4], label=&#39;setpoint&#39;)     </span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">rl_data</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;rl&quot;</span><span class="p">,</span> <span class="s2">&quot;rl&quot;</span><span class="p">]</span> <span class="p">)</span>   
+    
+
+
+    <span class="c1">## ploting the Q and the reference state. </span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time ---&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="c1"># axs[2][1].plot(rl_time, list_of_goal_state[5], label=&#39;setpoint&#39;)     </span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">rl_data</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;rl&quot;</span><span class="p">,</span> <span class="s2">&quot;rl&quot;</span><span class="p">]</span> <span class="p">)</span>   
+    
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> 
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>       </div>
+
+
+<div class="viewcode-block" id="plot_mpc_rl_comparision"><a class="viewcode-back" href="../ploting.html#ploting.plot_mpc_rl_comparision">[docs]</a><span class="k">def</span> <span class="nf">plot_mpc_rl_comparision</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">,</span> <span class="n">rl_uk</span><span class="p">,</span> <span class="n">mpc_xk</span><span class="p">,</span> <span class="n">mpc_uk</span><span class="p">,</span> <span class="n">itr</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function plot_xu is used to plots the four states :math:`[C_A, C_B, T_R, T_K]` and two action :math:`[F, \dot Q]`.  </span>
+
+<span class="sd">        Arguments : </span>
+<span class="sd">            **rl_xk (np.ndarray)** : rl_xk is the numpy array contents the four states (closed loop simulation by the reinforcement learning) :math:`[C_A, C_B, T_R, T_K]`.\n </span>
+<span class="sd">            **rl_uk (np.ndarray)** : rl_uk is the numpy array contents the two actions :math:`[F, \dot Q]`. \n</span>
+<span class="sd">            **mpc_xk (np.ndarray)** : mpc_xk is the numpy array contents the four states of closed loop simulation by the MPC controller :math:`[C_A, C_B, T_R, T_K]`. \n</span>
+<span class="sd">            **mpc_uk (np.ndarray)** : mpc_xk is the numpy array contents the four actions of closed loop simulation by the MPC controller. :math:`[F, \dot Q]`. \n </span>
+<span class="sd">            **itr (integer)** : itr is unique key given to the figure. \n</span>
+<span class="sd">            **file (str, path)** : path where figure need to be saved. \n</span>
+<span class="sd">            </span>
+<span class="sd">        Return :  </span>
+<span class="sd">            None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function plot_xu is used to plots the four states :math:`[C_A, C_B, T_R, T_K]` and two action :math:`[F, \dot Q]`.  </span>
+
+<span class="sd">        Arguments : </span>
+<span class="sd">            **rl_xk (np.ndarray)** : S is the numpy array contents the four states :math:`[C_A, C_B, T_R, T_K]`.  \n</span>
+<span class="sd">            **rl_uk (np.ndarray)** : I is the numpy array contents the two actions :math:`[F, \dot Q]`.  \n </span>
+<span class="sd">            **file (str, path)** : path where figure need to be saved.  \n</span>
+<span class="sd">            </span>
+<span class="sd">        Return :  </span>
+<span class="sd">            None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rl_xk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">)</span>   
+    <span class="n">rl_uk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rl_uk</span><span class="p">)</span>   
+
+    <span class="n">length</span> <span class="o">=</span> <span class="n">rl_xk</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+    <span class="n">rl_time</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>    
+    
+    <span class="n">rl_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">rl_xk</span><span class="p">,</span> <span class="n">rl_uk</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>  
+    
+    <span class="n">mpc_xk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mpc_xk</span><span class="p">)</span>   
+    <span class="n">mpc_uk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mpc_uk</span><span class="p">)</span>   
+
+    <span class="n">length</span> <span class="o">=</span> <span class="n">mpc_xk</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+    <span class="n">mpc_time</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>  
+    
+    <span class="n">mpc_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">mpc_xk</span><span class="p">,</span> <span class="n">mpc_uk</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>  
+
+    <span class="n">goal_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">.70</span><span class="p">,</span> <span class="mf">.55</span><span class="p">,</span> <span class="mf">127.25</span><span class="p">,</span> <span class="mf">124.39</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>     
+    
+    <span class="n">ca</span> <span class="o">=</span> <span class="p">[</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rl_time</span><span class="p">)</span> 
+    <span class="n">cb</span> <span class="o">=</span> <span class="p">[</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rl_time</span><span class="p">)</span> 
+    <span class="n">tr</span> <span class="o">=</span> <span class="p">[</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rl_time</span><span class="p">)</span> 
+    <span class="n">tk</span> <span class="o">=</span> <span class="p">[</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rl_time</span><span class="p">)</span>   
+
+    <span class="n">list_of_goal_state</span> <span class="o">=</span> <span class="p">[</span><span class="n">ca</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">tr</span><span class="p">,</span> <span class="n">tk</span><span class="p">]</span> 
+
+    <span class="n">o_ca</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">goal_state</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">4</span><span class="p">)</span> 
+    <span class="n">o_cb</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">goal_state</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">4</span><span class="p">)</span> 
+    <span class="n">o_tr</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">goal_state</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mi">4</span><span class="p">)</span> 
+    <span class="n">o_tk</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">goal_state</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="mi">4</span><span class="p">)</span> 
+
+    <span class="n">offset</span> <span class="o">=</span> <span class="p">[</span><span class="n">o_ca</span><span class="p">,</span> <span class="n">o_cb</span><span class="p">,</span> <span class="n">o_tr</span><span class="p">,</span> <span class="n">o_tk</span><span class="p">]</span>  
+
+    <span class="n">rl_ca_f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span> 
+    <span class="n">rl_cb_f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span> 
+    <span class="n">rl_tr_f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span> 
+    <span class="n">rl_tk_f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rl_xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>  
+    <span class="n">rl_f_f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rl_uk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span> 
+    <span class="n">rl_q_f</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rl_uk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>    
+
+    <span class="n">rl_final_value</span> <span class="o">=</span> <span class="p">[</span> <span class="n">rl_ca_f</span><span class="p">,</span><span class="n">rl_cb_f</span><span class="p">,</span><span class="n">rl_tr_f</span><span class="p">,</span><span class="n">rl_tk_f</span><span class="p">,</span> <span class="n">rl_f_f</span><span class="p">,</span> <span class="n">rl_q_f</span> <span class="p">]</span>  
+
+
+    <span class="n">title</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;concentration of reactant A $(C_A)- test :$&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">itr</span><span class="p">),</span> <span class="s2">&quot;concentration of reactant B $(C_B)- test :$&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">itr</span><span class="p">),</span> <span class="s2">&quot;temperature inside reactor $(T_R)- test :$&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">itr</span><span class="p">),</span>
+             <span class="s2">&quot;temperature of the cooling jacket $(T_K)- test :$&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">itr</span><span class="p">),</span> <span class="s2">&quot; feed $F$ &quot;</span><span class="p">,</span> <span class="s2">&quot; heat flow $Q- test :$&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">itr</span><span class="p">)]</span> 
+
+
+    <span class="n">ylabel</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;$C_A$&#39;</span><span class="p">,</span> <span class="s1">&#39;$C_B$&#39;</span><span class="p">,</span> <span class="s1">&#39;$T_R$&#39;</span><span class="p">,</span> <span class="s1">&#39;$T_K$&#39;</span><span class="p">,</span> <span class="s1">&#39;$F$&#39;</span><span class="p">,</span> <span class="s1">&#39;$Q$&#39;</span><span class="p">]</span>
+    
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+
+    <span class="c1"># print(type(axs))  </span>
+    <span class="c1"># print(len(axs)) </span>
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time ---&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="c1"># axs[0][0].plot(rl_time, list_of_goal_state[0], label=&#39;setpoint&#39;)     </span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">rl_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>   
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mpc_time</span><span class="p">,</span> <span class="n">mpc_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>   
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;rl&quot;</span><span class="p">,</span> <span class="s2">&quot;mpc&quot;</span><span class="p">]</span> <span class="p">)</span>    
+    
+    
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time ---&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">list_of_goal_state</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;setpoint&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>     
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">rl_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mpc_time</span><span class="p">,</span> <span class="n">mpc_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;setpoint&quot;</span><span class="p">,</span><span class="s2">&quot;rl&quot;</span><span class="p">,</span> <span class="s2">&quot;mpc&quot;</span><span class="p">]</span> <span class="p">)</span>   
+    
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.85</span><span class="p">,</span> <span class="s1">&#39;set point: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">goal_state</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  
+    
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.7</span><span class="p">,</span> <span class="s1">&#39;rl : &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rl_final_value</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span> 
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;offset: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>  
+
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time ---&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">rl_data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mpc_time</span><span class="p">,</span> <span class="n">mpc_data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;rl&quot;</span><span class="p">,</span> <span class="s2">&quot;mpc&quot;</span><span class="p">]</span> <span class="p">)</span>   
+    
+	
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time ---&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">rl_data</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mpc_time</span><span class="p">,</span> <span class="n">mpc_data</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;rl&quot;</span><span class="p">,</span> <span class="s2">&quot;mpc&quot;</span><span class="p">]</span> <span class="p">)</span>   
+    
+
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time ---&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">rl_data</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mpc_time</span><span class="p">,</span> <span class="n">mpc_data</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;rl&quot;</span><span class="p">,</span> <span class="s2">&quot;mpc&quot;</span><span class="p">]</span> <span class="p">)</span>   
+    
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time ---&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rl_time</span><span class="p">,</span> <span class="n">rl_data</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mpc_time</span><span class="p">,</span> <span class="n">mpc_data</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rl&#39;</span><span class="p">)</span>  
+    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;rl&quot;</span><span class="p">,</span> <span class="s2">&quot;mpc&quot;</span><span class="p">]</span> <span class="p">)</span>   
+    
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>  
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>      </div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Vikas Rajpoot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
