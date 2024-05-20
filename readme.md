@@ -10,6 +10,8 @@ Model predictive control (MPC) has seen tremendous success in control of industr
 main.py will train the actor-critic network and save the metrics [mean episode reward, actor loss, critic loss] in the "./data/mat" folder and save the trained actor critic network in the "./data/models" key 17 is given to he final model.
 
 
+Model predictive control (MPC) has seen tremendous success in control of industrial processes due to its ability to effectively handle multi-input multi-output (MIMO) systems in the presence of process constraints. Effective control of nonlinear processes operated at wider operating regimes often requires either use of multiple linear models or a nonlinear model in the MPC framework. While theoretically this can result in improved performance compared to linear MPC, it suffers from additional complexities such as model switch scheduling, computational complexity, and convergence of solution to a local optimum. The reinforcement learning (RL) framework for control, which directly learns the control policy by interacting with the underlying process, is gaining growing interest, and is known to overcome the challenges faced by nonlinear MPC and achieve superior controller performance, with adequate exploration during training. In this work, we carry out a comparative analysis between RL and nonlinear MPC for a nonlinear chemical process - a continuous time stirred reactor (CSTR). Simulation studies reveal the superior performance of RL, attributed to its resolution of an infinite-horizon control problem, in contrast to MPC, which tackles finite-horizon optimization. 
+
 ## metrics.py 
 metrics.py file is used to plot the [mean episode reward, actor loss, critic loss] plots will be saved in the "./data/mat" folder. 
 
