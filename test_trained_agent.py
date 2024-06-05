@@ -1,8 +1,8 @@
-import DDPG as dg 
-import env as e 
-import utils
+import DDPG.DDPG as dg 
+import Env.env as e 
+import Utils.utils as utils
 import numpy as np 
-import ploting
+import Utils.ploting as ploting
 import time 
 
 
