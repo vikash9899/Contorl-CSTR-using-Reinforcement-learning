@@ -1,9 +1,9 @@
 import numpy as np
-import utils 
+import Utils.utils as utils 
 from gym import spaces
 import gym 
-from random_sa import sample_states, sample_actions 
-import simulator 
+from Utils.random_sa import sample_states, sample_actions 
+import Simulation.simulator as simulator 
 
 
 

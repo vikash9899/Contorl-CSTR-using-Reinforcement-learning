@@ -1,8 +1,8 @@
 import numpy as np
-import DDPG as dg 
-import env as e
-import utils
-import buffer as bf
+import DDPG.DDPG as dg 
+import Env.env as e
+import Utils.utils as utils
+import DDPG.buffer as bf
 import time 
 
 np.set_printoptions(formatter={'float': lambda x: "{0:0.5f}".format(x)})
