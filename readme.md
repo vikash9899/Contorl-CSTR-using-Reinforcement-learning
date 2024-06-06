@@ -23,7 +23,7 @@ To run this project, you need to have Python installed on your system. Follow th
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/Control-CSTR-using-Reinforcement-learning.git
+    git clone https://github.com/vikash9899/Contorl-CSTR-using-Reinforcement-learning.git
     cd Control-CSTR-using-Reinforcement-learning
     ```
 
