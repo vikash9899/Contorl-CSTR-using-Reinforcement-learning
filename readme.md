@@ -1,43 +1,124 @@
-# Introduction 
-
-Model predictive control (MPC) has seen tremendous success in control of industrial processes due to its ability to effectively handle multi-input multi-output (MIMO) systems in the presence of process constraints. Effective control of nonlinear processes operated at wider operating regimes often requires either use of multiple linear models or a nonlinear model in the MPC framework. While theoretically this can result in improved performance compared to linear MPC, it suffers from additional complexities such as model switch scheduling, computational complexity, and convergence of solution to a local optimum. The reinforcement learning (RL) framework for control, which directly learns the control policy by interacting with the underlying process, is gaining growing interest, and is known to overcome the challenges faced by nonlinear MPC and achieve superior controller performance, with adequate exploration during training. In this work, we carry out a comparative analysis between RL and nonlinear MPC for a nonlinear chemical process - a continuous time stirred reactor (CSTR). Simulation studies reveal the superior performance of RL, attributed to its resolution of an infinite-horizon control problem, in contrast to MPC, which tackles finite-horizon optimization.
+<!-- The project "Control-CSTR-using-Reinforcement-learning" seems to involve controlling a Continuous Stirred Tank Reactor (CSTR) using reinforcement learning techniques. Below is a detailed `README.md` file based on the structure and contents of the project: -->
 
 
+# Control CSTR using Reinforcement Learning
 
-# Information about the different files. 
+## Overview
 
-## main.py 
-main.py will train the actor-critic network and save the metrics [mean episode reward, actor loss, critic loss] in the "./data/mat" folder and save the trained actor critic network in the "./data/models" key 17 is given to he final model.
+This project aims to control a Continuous Stirred Tank Reactor (CSTR) using reinforcement learning algorithms. The project is structured to include environment definitions, simulation scripts, utility functions, and documentation to guide users through the implementation and understanding of the system.
 
+## Table of Contents
 
-Model predictive control (MPC) has seen tremendous success in control of industrial processes due to its ability to effectively handle multi-input multi-output (MIMO) systems in the presence of process constraints. Effective control of nonlinear processes operated at wider operating regimes often requires either use of multiple linear models or a nonlinear model in the MPC framework. While theoretically this can result in improved performance compared to linear MPC, it suffers from additional complexities such as model switch scheduling, computational complexity, and convergence of solution to a local optimum. The reinforcement learning (RL) framework for control, which directly learns the control policy by interacting with the underlying process, is gaining growing interest, and is known to overcome the challenges faced by nonlinear MPC and achieve superior controller performance, with adequate exploration during training. In this work, we carry out a comparative analysis between RL and nonlinear MPC for a nonlinear chemical process - a continuous time stirred reactor (CSTR). Simulation studies reveal the superior performance of RL, attributed to its resolution of an infinite-horizon control problem, in contrast to MPC, which tackles finite-horizon optimization. 
+- [Installation](#installation)
+- [Project Structure](#project-structure)
+- [Usage](#usage)
+- [Examples](#examples)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [License](#license)
 
-## metrics.py 
-metrics.py file is used to plot the [mean episode reward, actor loss, critic loss] plots will be saved in the "./data/mat" folder. 
+## Installation
 
+To run this project, you need to have Python installed on your system. Follow the steps below to set up the project environment.
 
-## test_trained_agent.py 
-test_trained_agent.py file is used to test the tarined agent. test episode data will be saved in the "./data/test_data" folder and test plots will be saved in the "./data/test_plots" folder.
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/yourusername/Control-CSTR-using-Reinforcement-learning.git
+    cd Control-CSTR-using-Reinforcement-learning
+    ```
 
+2. Create a virtual environment:
+    ```sh
+    python -m venv venv
+    ```
 
-## env.py 
-This file contains the CSTR eviroment where reset, step functions are implemented. 
+3. Activate the virtual environment:
+    - On Windows:
+        ```sh
+        venv\Scripts\activate
+        ```
+    - On macOS/Linux:
+        ```sh
+        source venv/bin/activate
+        ```
 
+4. Install the required dependencies:
+    ```sh
+    pip install -r requirements.txt
+    ```
 
-## DDPG.py  
-This file contains the ddpg algorithm.
+## Project Structure
 
+The project is organized into the following directories:
 
-## buffer.py 
-This file use to stores the buffer data used in the ddpg algorithm. 
+```
+Control-CSTR-using-Reinforcement-learning/
+│
+├── Env/
+│   └── env.py                 # Environment definitions for the CSTR
+│
+├── Simulation/
+│   └── simulator.py           # Simulation scripts for running experiments
+│
+├── Utils/
+│   ├── metrics.py             # Utility functions for metrics calculation
+│   ├── ploting.py             # Utility functions for plotting results
+│   ├── random_sa.py           # Utility functions for random search algorithms
+│   └── utils.py               # General utility functions
+│
+├── docs/
+│   └── _build/
+│       └── html/              # Generated documentation in HTML format
+│
+└── README.md                  # Project readme file
+```
 
-## simulator.py 
-simulator file is used to simulate the CSTR equations/to solve the CSTR equations.
+## Usage
 
-## ploting.py 
-ploting file contains the code to plot the closed loop simulation and different figures. 
+To use this project, follow these steps:
 
-## random_sa 
-This file is used to randomly select the states and action within the given range of the CSTR. 
+1. Set up the environment and install dependencies as mentioned in the [Installation](#installation) section.
+2. Run simulations or experiments using the scripts provided in the `Simulation` directory.
+3. Utilize the utility functions from the `Utils` directory for tasks such as plotting results or calculating metrics.
 
+### Running a Simulation
 
+To run a simulation, you can use the `simulator.py` script. For example:
+```sh
+python Simulation/simulator.py
+```
+
+## Examples
+
+Here is an example of how to run a basic simulation and plot the results:
+
+```python
+from Env.env import CSTR
+from Simulation.simulator import run_simulation
+from Utils.ploting import plot_results
+
+# Initialize the CSTR environment
+env = CSTR()
+
+# Run the simulation
+results = run_simulation(env)
+
+# Plot the results
+plot_results(results)
+```
+
+## Documentation
+
+Detailed documentation for this project is available in the `docs` directory. You can open the HTML documentation by navigating to `docs/_build/html/index.html`.
+
+## Contributing
+
+We welcome contributions to improve this project! If you have suggestions, bug reports, or want to contribute code, please open an issue or submit a pull request on GitHub.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+---
+
+Feel free to customize this `README.md` further to match the specifics and preferences of your project.
