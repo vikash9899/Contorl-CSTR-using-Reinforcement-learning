@@ -62,8 +62,7 @@ To run this project, you need to have Python installed along with several depend
     ```bash
     git clone https://github.com/vikash9899/Contorl-CSTR-using-Reinforcement-learning.git
 
-    cd Control-CSTR-using-Reinforcement-Learning
-    ```
+
 
 2. **Create a Virtual Environment**:
     ```bash
@@ -179,6 +178,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 
 This project builds upon numerous open-source libraries and research contributions in the fields of reinforcement learning and chemical process control. We extend our gratitude to the contributors and maintainers of these projects.
 
----
-<!-- 
-This `README.md` provides an extensive overview of the project, covering all essential aspects from installation to usage, and from project structure to contributing guidelines. This should help users and developers understand and engage with the project effectively. -->
+
