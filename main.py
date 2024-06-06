@@ -14,6 +14,20 @@ episode_length = 500
 
 def actor_training(env, policy, batch_size, replay_buffer, start_timesteps, total_ep_training ):
 
+    """
+    Trains the actor network using the specified environment and policy.
+
+    Arguments:
+        env (object): The environment object.
+        policy (object): The DDPG policy object.
+        batch_size (int): The batch size used to update the actor-critic.
+        replay_buffer (object): The replay buffer used to store transitions.
+        start_timesteps (int): The number of warm-up episodes during which the actor-critic network is not updated.
+        total_ep_training (int): The total number of episodes used to train the actor-critic network.
+
+    Returns:
+        None
+    """
     global episode_length 
 
     # list to store the episode rewards. 
@@ -187,6 +201,15 @@ def actor_training(env, policy, batch_size, replay_buffer, start_timesteps, tota
 
 def run(): 
 
+    """
+    Main function to set up the environment, create the DDPG object, and start the training process.
+
+    Arguments:
+        None
+
+    Returns:
+        None
+    """
     ## creating the environment. 
     cstr = e.cstr_env() 
 

@@ -1,5 +1,8 @@
-# igonore 
+__pycache__/
+data/logs/
+data/mpc/
 
-__pycache__
 
-data
+readme_1.md
+readme_2.md
+

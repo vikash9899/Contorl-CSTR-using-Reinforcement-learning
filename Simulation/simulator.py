@@ -5,7 +5,39 @@ from scipy.integrate import odeint
 
 def cstr_dynamics(ti,tf,y01, y02, y03, y04, F, Q_dot):
 
+    """
+    Simulates the dynamics of a Continuous Stirred Tank Reactor (CSTR) using 
+    ordinary differential equations (ODEs).
+
+    Parameters:
+        ti (float): Initial time.
+        tf (float): Final time.
+        y01 (float): Initial concentration of component A (mol/l).
+        y02 (float): Initial concentration of component B (mol/l).
+        y03 (float): Initial reactor temperature (Celsius).
+        y04 (float): Initial jacket temperature (Celsius).
+        F (float): Flow rate (l/h).
+        Q_dot (float): Heat duty (kj/h).
+
+    Returns:
+        numpy.ndarray: Array of the final state values [C_A, C_B, T_R, T_K], where:
+            C_A (float): Concentration of component A (mol/l).
+            C_B (float): Concentration of component B (mol/l).
+            T_R (float): Reactor temperature (Celsius).
+            T_K (float): Jacket temperature (Celsius).
+    """
+
     def func(y,t):
+        """
+        Defines the system of ODEs representing the CSTR dynamics.
+
+        Parameters:
+            y (list): List of state variables [C_A, C_B, T_R, T_K].
+            t (float): Time.
+
+        Returns:
+            list: Derivatives of the state variables [dC_A/dt, dC_B/dt, dT_R/dt, dT_K/dt].
+        """
         # parameters
         K0_ab = 1.287e12   # K0 [h^-1] 
         K0_bc = 1.287e12   # K0 [h^-1]

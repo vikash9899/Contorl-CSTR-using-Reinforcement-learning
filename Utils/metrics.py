@@ -4,6 +4,17 @@ import matplotlib.pyplot as plt
 
 def plot_series(series, title, xlabel, ylabel, file): 
     """ 
+    Plots a time series and saves the plot as an image file.
+
+    Arguments:
+        series (list or numpy array): The data series to plot.
+        title (str): The title of the plot.
+        xlabel (str): The label for the x-axis.
+        ylabel (str): The label for the y-axis.
+        file (str): The file path to save the plot image.
+    
+    Returns:
+        None
     """
     x = list(range(500, len(series)+500))  
     plt.figure(figsize=(10, 6)) 
@@ -18,7 +29,20 @@ def plot_series(series, title, xlabel, ylabel, file):
 
 
 def plot_sliding_mean(data, window, titile, xlabel, ylabel, file):
+    """
+       Plots a time series with a sliding mean window and saves the plot as an image file.
+
+    Arguments:
+        data (list or numpy array): The data series to plot.
+        window (int): The window size for computing the sliding mean.
+        title (str): The title of the plot.
+        xlabel (str): The label for the x-axis.
+        ylabel (str): The label for the y-axis.
+        file (str): The file path to save the plot image.
     
+    Returns:
+        None
+    """
     m_cl = [] 
     for i in range(0, len(data)-window):
         # print(i) 
