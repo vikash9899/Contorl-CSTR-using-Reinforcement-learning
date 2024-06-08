@@ -1,3 +1,0 @@
-1686108198.6335213
-1686124629.0239747
-16430.39 time taken during training in seconds
