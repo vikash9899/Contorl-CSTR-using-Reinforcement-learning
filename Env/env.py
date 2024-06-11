@@ -1,7 +1,7 @@
 import numpy as np
 import Utils.utils as utils 
-from gym import spaces
-import gym 
+from gymnasium import spaces
+import gymnasium as gym 
 from Utils.random_sa import sample_states, sample_actions 
 import Simulation.simulator as simulator 
 
