@@ -1,8 +1,11 @@
-__pycache__/
+__pycache__
 
-data/
-
+data
+.venv
 
 readme_1.md
 readme_2.md
+
+
+
 
