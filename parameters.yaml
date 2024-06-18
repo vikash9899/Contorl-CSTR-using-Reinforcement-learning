@@ -1,0 +1,32 @@
+# CSTR environment and DDPG algorithm configuration
+
+# CSTR environment specification (replace with your specific details)
+env:
+  # ... (state variables, actions, reward function, episode length)
+
+# DDPG algorithm parameters
+ddpg:
+  actor:
+    lr: 0.001
+    gamma: 0.99
+    tau: 0.01
+    activation: tanh  # Choose an activation function (e.g., tanh, relu)
+  critic:
+    lr: 0.001
+    gamma: 0.99
+    tau: 0.01
+    activation: tanh  # Choose an activation function (e.g., tanh, relu)
+  replay_buffer:
+    size: 100000
+    batch_size: 64
+  noise:
+    type: ornstein_uhlenbeck
+    theta: 0.15
+    sigma: 0.2
+
+# Training configuration
+training:
+  num_episodes: 1000
+  max_episode_steps: 500
+  log_dir: ./training_logs  # Directory to store training logs
+  eval_interval: 100       # How often to evaluate the agent (in episodes)
